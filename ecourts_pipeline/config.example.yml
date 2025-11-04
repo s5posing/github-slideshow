@@ -1,0 +1,30 @@
+judge_roster:
+  path: ../data/judges.xlsx
+  sheet_name: Judges
+  name_column: JudgeName
+  additional_alias_columns:
+    - NameAlias1
+    - NameAlias2
+  alias_lookup_path: ../data/judge_aliases.csv
+
+scraper:
+  base_url: https://judgments.ecourts.gov.in/pdfsearch/index.php
+  headless: false
+  max_cases_per_judge: 150
+  request_delay_secs: 2.5
+  viewport_width: 1440
+  viewport_height: 900
+  captcha_prompt: "Solve the captcha in the browser window, then press ENTER to continue."
+  case_detail_pdf_selector: "a[href*='getPDF']"
+
+storage:
+  workspace: ./outputs
+  metadata_path: ./outputs/case_metadata.parquet
+  raw_html_dir: ./outputs/html
+  pdf_dir: ./outputs/pdf
+  text_dir: ./outputs/text
+
+classification:
+  state_entities_path: ./data/state_entities.yml
+  training_data_path: null
+  model_output_path: ./outputs/models/state_outcome.joblib
